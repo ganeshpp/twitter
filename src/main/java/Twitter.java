@@ -31,7 +31,7 @@ public class Twitter {
     public static String publish(String token, String userName, String message) {
         // if(validate(user_id,token))
         UUID uuid = UUID.randomUUID();
-        Message msg = new Message(uuid.toString(), message, LocalDateTime.now(), userName);
+        Message msg = new Message(uuid.toString(), message, userName);
         if (messages.get(userName).add(msg))
             return uuid.toString();
         return null;
@@ -39,7 +39,7 @@ public class Twitter {
 
     public static ArrayList<Message> viewTimeline(String token, String userName) {
         // if(validate(userName,token))
-        PriorityQueue<Message> queue = new PriorityQueue<Message>((a, b) -> a.getTime().compareTo(b.getTime()));
+        PriorityQueue<Message> queue = new PriorityQueue<Message>((a, b) -> Long.compare(b.getTime() , a.getTime()));
         queue.addAll(following.get(userName).stream().map(user -> messages.get(user)).flatMap(l -> l.stream()).collect(Collectors.toList()));
         return new ArrayList(Arrays.asList(queue.toArray()));
     }

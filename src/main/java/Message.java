@@ -4,13 +4,13 @@ import java.time.ZoneOffset;
 public class Message {
     private String id;
     private String message;
-    private LocalDateTime time;
+    private long time;
     private String user_id;
 
-    public Message(String id, String message, LocalDateTime time, String user_id) {
+    public Message(String id, String message, String user_id) {
         this.id = id;
         this.message = message;
-        this.time = time;
+        this.time = System.currentTimeMillis();
         this.user_id = user_id;
     }
 
@@ -18,11 +18,16 @@ public class Message {
         return message;  // + ( long val = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC) - time.toEpochSecond( ZoneOffset.UTC););
     }
 
+
+    public String getTimeLineMessage() {
+        return message + "(" +( System.currentTimeMillis() - time ) +")";
+    }
+
     public String getId() {
         return id;
     }
 
-    public LocalDateTime getTime() {
+    public  long getTime() {
         return time;
     }
 

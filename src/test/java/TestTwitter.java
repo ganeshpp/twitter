@@ -84,7 +84,7 @@ public class TestTwitter
         Twitter.AddUser(USER2,"");
         String msg_u21= "I love the weather today.";
         String msg_u22= "great weekend";
-
+        Thread.sleep(5000);
         User alice = Twitter.getUser("","",USER2);
         String msg_21d = alice.publishMessage(msg_u21);
         String msg_22d = alice.publishMessage(msg_u22);
@@ -93,13 +93,12 @@ public class TestTwitter
         List<User> users = bob.getfollowers();
         assertEquals(users.size(),1);
         assertEquals(users.get(0).getUserName(),alice.getUserName());
-
         List<Message> bobtimeline = bob.viewTimeLine();
         assertEquals(bobtimeline.size(),4);
         long alice_msg_count = bobtimeline.stream().filter(msg -> msg.getUser_id().equals(alice.getUserName())).count();
         assertEquals(alice_msg_count,2L);
+        bobtimeline.forEach(msg -> System.out.println(msg.getTimeLineMessage()));
         assertTrue(bobtimeline.stream().filter(msg -> msg.getUser_id().equals(alice.getUserName())).map(msg -> msg.getMessage()).collect(Collectors.toList()).contains(msg_u21));
-
 
     }
 
