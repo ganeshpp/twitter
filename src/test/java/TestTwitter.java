@@ -99,7 +99,7 @@ public class TestTwitter
         assertEquals(alice_msg_count,2L);
         bobtimeline.forEach(msg -> System.out.println(msg.getTimeLineMessage()));
         assertTrue(bobtimeline.stream().filter(msg -> msg.getUser_id().equals(alice.getUserName())).map(msg -> msg.getMessage()).collect(Collectors.toList()).contains(msg_u21));
-
+        alice.viewTimeLine().forEach(msg -> System.out.println(msg.getTimeLineMessage()));
     }
 
 }

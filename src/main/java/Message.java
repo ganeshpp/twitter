@@ -15,12 +15,12 @@ public class Message {
     }
 
     public String getMessage() {
-        return message;  // + ( long val = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC) - time.toEpochSecond( ZoneOffset.UTC););
+        return message;
     }
 
 
     public String getTimeLineMessage() {
-        return message + "(" +( System.currentTimeMillis() - time ) +")";
+        return user_id +"-"+ getMessage() + "( " + durationMessage(System.currentTimeMillis() - time ) +" )";
     }
 
     public String getId() {
@@ -33,6 +33,19 @@ public class Message {
 
     public String getUser_id() {
         return user_id;
+    }
+
+    public String durationMessage(long duration )
+    {
+        if(duration < 60 * 1000)
+                return (duration/1000) +" seconds ago";
+        else if(duration < 60 * 60 * 1000 )
+                return (duration/(60 * 1000) +" minutes ago");
+         else if(duration < 60 * 60 * 1000 )
+               return (duration/(60 * 60 * 24 * 1000) +" hours ago");
+
+         return "....long time back";
+
     }
 
 }
